@@ -3,6 +3,8 @@
 #include <string>
 #include <cctype>
 
+
+//typedef string (*CalcFunc)(string); map<string, CalcFunc>
 using namespace std;
 
 int getcmd(string& s);
@@ -91,15 +93,18 @@ string variable_define(string s) {
 
 string polynomial_condense(string s) {
 	cout << "Condense Polynomial command has been executed" << endl;
-	return s;
+	Polynomial p(s);
+	return p.get();
 }
 
 string polynomial_divide(string s) {
 	cout << "Divide Polynomials command has been executed" << endl;
-	return s;
+	Polynomial p(s);
+	return p.get();
 }
 
 string polynomial_factor(string s) {
 	cout << "Factor Polynomials has been executed" << endl;
-	return s;
+	Polynomial p(s);
+	return p.get();
 }
