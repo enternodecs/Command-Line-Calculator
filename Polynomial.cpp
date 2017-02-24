@@ -20,18 +20,25 @@ Polynomial::Polynomial(string s) {
 		}
 		//If not, see if it's the end of one
 		else if (*iter == 'x') {
+			//If x has no coefficient
+			if (coetemp == "")
+				coetemp = "1.0";
 			//Parse coefficient into double
 			d = atof(coetemp.c_str());
 			//Incriment into the exponent
-			++iter;
+			if (iter != s.end())
+				++iter;
 			//Just in case they decided to use a carrot to denote exponent
-			if (*iter == '^')
+			if (iter != s.end() && *iter == '^')
 				++iter;
 			//Read exponent into int
 			while (iter != s.end() && isdigit(*iter)) {
 				exptemp += *iter;
 				++iter;
 			}
+			//If X has no exponent, assume one
+			if (exptemp == "")
+				exptemp = "1";
 			i = atoi(exptemp.c_str());
 			//Test for degree to be used as a convenience variable later
 			if (i > deg)

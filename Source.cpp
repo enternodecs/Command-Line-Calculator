@@ -21,7 +21,9 @@ enum Commands {
 	define,
 	poly_condense,
 	poly_divide,
-	poly_factor
+	poly_factor,
+	close,
+	help
 };
 
 int main() {
@@ -44,6 +46,12 @@ int main() {
 			break;
 		case poly_factor:
 			cout << polynomial_factor(s) << endl;
+			break;
+		case close:
+			return 0;
+			break;
+		case help:
+			cout << "Avalible commands: \nsimplify \[expression\]\ndefine \[letter\] \[numer\]" << endl;
 			break;
 		case invalid:
 			cout << "Invalid command." << endl;
@@ -78,6 +86,8 @@ int getcmd(string& s) {
 	else if (sub == "poly_condense") return poly_condense;
 	else if (sub == "poly_divide") return poly_divide;
 	else if (sub == "poly_factor") return poly_factor;
+	else if (sub == "exit") return close;
+	else if (sub == "help") return help;
 	else return invalid;
 }
 
@@ -99,8 +109,22 @@ string polynomial_condense(string s) {
 
 string polynomial_divide(string s) {
 	cout << "Divide Polynomials command has been executed" << endl;
-	Polynomial p(s);
-	return p.get();
+	string dividend(""), divisor("");
+	string::iterator iter = s.begin();
+	if (iter == s.end()) throw exception("No arguments provided to polynomial_divide!");
+	if (*iter == '/') throw exception("Dividend not provided to polynomial_divide!");
+	while (iter != s.end()) {
+		if (*iter != '/') dividend += *iter;
+		else break;
+		iter++;
+	}
+	++iter;
+	while (iter != s.end()) {
+		divisor += *iter;
+		iter++;
+	}
+	Polynomial poly_dividend(dividend), poly_divisor(divisor);
+	return poly_dividend.get() + "\n" + poly_divisor.get();
 }
 
 string polynomial_factor(string s) {
