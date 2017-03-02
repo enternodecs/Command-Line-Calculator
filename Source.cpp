@@ -3,6 +3,8 @@
 #include <string>
 #include <cctype>
 #include <utility>
+#include <fstream>
+
 
 #define DEBUG
 
@@ -46,7 +48,7 @@ int main() {
 				cout << polynomial_condense(s) << endl;
 				break;
 			case poly_divide:
-				cout << polynomial_divide(s) << endl;
+				cout << "The answer is: \n" << polynomial_divide(s) << endl;
 				break;
 			case poly_factor:
 				cout << polynomial_factor(s) << endl;

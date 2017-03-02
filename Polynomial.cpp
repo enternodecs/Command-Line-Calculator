@@ -17,7 +17,7 @@ Polynomial::Polynomial(string s) {
 	string::iterator iter = s.begin();
 	string coetemp("");
 	string exptemp("");
-	double d;
+	Polynomial::coeff d;
 	int i;
 	int deg = 0;
 	//Read string
@@ -121,7 +121,6 @@ string Polynomial::get() const {
 }
 
 void Polynomial::updateDegree() {
-	double zero = 0.000000;
 	degree = 0;
 	for (unsigned int i = 0; i < poly.size(); i++) {
 		if (abs(poly[i] - 0.0) >= 1e-7) {
@@ -136,14 +135,14 @@ void Polynomial::updateDegree() {
 
 //Overloaded Operators
 
-Polynomial Polynomial::operator*(const pair<int, double> &p) const {
+Polynomial Polynomial::operator*(const pair<int, Polynomial::coeff> &p) const {
 #ifndef DEBUG
-	cout << "Multiplying " << poly.get() << " and " << p.second << "x^" << p.first << endl;
+	cout << "Multiplying " << (*this).get() << " and " << p.second << "x^" << p.first << endl;
 #endif
 	//Best way to construct polynomial is by using a string
 	string s("");
 	//Variables we do not need to destroy and remake at every iteration
-	double tco;
+	Polynomial::coeff tco;
 	int texp;
 	//For every term in the polynomial
 	for (int i = getDegree(); i != -1; i--) {
@@ -194,7 +193,7 @@ void Polynomial::operator+=(Polynomial &rhs) {
 #endif
 }
 
-void Polynomial::operator+=(std::pair<int, double> &rhs) {
+void Polynomial::operator+=(std::pair<int, Polynomial::coeff> &rhs) {
 #ifndef DEBUG
 	std::cout << "Adding term " << rhs.second << "x^" << rhs.first << " to " << get() << std::endl;
 #endif
@@ -227,7 +226,7 @@ pair<Polynomial, Polynomial> Polynomial::operator/(const Polynomial &rhs) {
 
 	Polynomial poly_dividend(*this), answer("0"), temp("0");
 	int exp = 0;
-	double co = 0;
+	Polynomial::coeff co = 0;
 	string remainder;
 	//Perhaps later this will become an overloaded operator
 	while (rhs.getDegree() <= poly_dividend.getDegree()) {
